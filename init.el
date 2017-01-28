@@ -28,14 +28,17 @@
     projectile
     helm-projectile
     elscreen
+    elixir-mode
+    alchemist
     magit
     zoom-window
+    use-package
     company-jedi
     emmet-mode
     jinja2-mode
     material-theme
     tree-mode
-    bytecomp
+    ;; bytecomp
     ))
 
 (mapc #'(lambda (package)
@@ -133,7 +136,7 @@
 ;; don't save backup files
 (setq make-backup-files nil)
 
-(setq venv-location "/home/neverhope/.virtualenvs/")
+(setq venv-location "/home/jcepeda/.virtualenvs/")
 
 ;; (elpy-enable)
 
@@ -153,8 +156,8 @@
   (add-hook 'python-mode-hook 'my/python-mode-hook))
 
 ;; jedi config
-;; (add-hook 'python-mode-hook 'jedi:setup)
-;; (setq jedi:complete-on-dot t)
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)
 
 ;; Emmet for web editing
 (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
@@ -170,15 +173,20 @@
 
 (provide 'init-jinja2-mode)
 
-(defun autocompile nil
-  "compile itself if ~/.emacs"
-  (interactive)
-  (require 'bytecomp)
-  (let ((dotemacs (expand-file-name "~/.emacs")))
-    (if (string= (buffer-file-name) (file-chase-links dotemacs))
-      (byte-compile-file dotemacs))))
-
-
-(add-hook 'after-save-hook 'autocompile)
-
+(company-mode)
+(alchemist-mode)
 ;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (company alchemist elixir-mode elixir-mix zoom-window yaml-mode virtualenvwrapper use-package tree-mode py-autopep8 material-theme markdown-mode magit jinja2-mode jedi helm-projectile emmet-mode elscreen elpy company-jedi better-defaults))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
