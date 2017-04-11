@@ -28,8 +28,6 @@
     projectile
     helm-projectile
     elscreen
-    elixir-mode
-    alchemist
     magit
     zoom-window
     use-package
@@ -38,7 +36,6 @@
     jinja2-mode
     material-theme
     tree-mode
-    ;; bytecomp
     ))
 
 (mapc #'(lambda (package)
@@ -172,21 +169,3 @@
       (append '(("\\.html" . jinja2-mode)) auto-mode-alist))
 
 (provide 'init-jinja2-mode)
-
-(company-mode)
-(alchemist-mode)
-;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (company alchemist elixir-mode elixir-mix zoom-window yaml-mode virtualenvwrapper use-package tree-mode py-autopep8 material-theme markdown-mode magit jinja2-mode jedi helm-projectile emmet-mode elscreen elpy company-jedi better-defaults))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
