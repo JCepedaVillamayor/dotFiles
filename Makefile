@@ -1,9 +1,11 @@
 setup: update zsh zsh-config virtualenvwrapper python emacs
 
+opencv_setup: install-opencv remove_opencv_directories
+
 update:
 	sudo apt-get update && sudo apt-get upgrade
 
-install-opencv:
+install_opencv:
 	./opencv_install.sh
 
 remove_opencv_directories:
@@ -26,8 +28,16 @@ emacs:
 
 zsh:
 	sudo apt-get install git zsh curl
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	chmod +x scripts/install_oh_my_zsh.sh
+	./scripts/install_oh_my_zsh.sh
 	chsh -s /bin/zsh
+
+stack:
+	chmod +x ./scripts/install_stack.sh
+	./scripts/install_stack.sh
+	stack setup
+	sudo apt-get install libncurses5-dev
+	stack install intero
 
 virtualenvwrapper: python
 	sudo apt-get install python-virtualenv
