@@ -50,3 +50,7 @@ python:
 	sudo apt-get install -y python-pip
 	sudo pip install --upgrade pip
 	sudo pip install jedi
+
+bluetooth-thinkpad:
+	sudo wget http://security.ubuntu.com/ubuntu/pool/main/l/linux-firmware/linux-firmware_1.161.1_all.deb
+	sudo dpkg -i linux-firmware_1.161.1_all.deb
