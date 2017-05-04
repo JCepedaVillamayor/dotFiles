@@ -54,3 +54,10 @@ python:
 bluetooth-thinkpad:
 	sudo wget http://security.ubuntu.com/ubuntu/pool/main/l/linux-firmware/linux-firmware_1.161.1_all.deb
 	sudo dpkg -i linux-firmware_1.161.1_all.deb
+
+install-postman:
+	wget https://dl.pstmn.io/download/latest/linux64 -O postman.tar.gz
+	sudo tar -xzf postman.tar.gz -C /opt
+	rm postman.tar.gz
+	sudo ln -s /opt/Postman/Postman /usr/bin/postman
+	cp ./postman.desktop ~/.local/share/applications/postman.desktop
