@@ -2,7 +2,7 @@ export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="robbyrussell"
 
-plugins=(git)
+plugins=(git docker tmuxinator python rvm docker docker-compose pip golang)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -16,6 +16,7 @@ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 
 export EDITOR=vim
-source ~/.bin/tmuxinator.zsh
 
 export PATH="$PATH:$HOME/.rvm/bin"
+
+alias mux="tmuxinator"
