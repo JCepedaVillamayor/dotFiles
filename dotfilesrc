@@ -1,0 +1,13 @@
+[dotfiles]
+repository = ~/repos/dotFiles
+ignore = [
+	'.git',
+	'.gitignore',
+	'*.swp',
+	'Makefile',
+	'init.el',
+	'LICENSE',
+	'opencv_install.sh',
+	'README.md',
+	'scripts',
+	'Dotfiles']

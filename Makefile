@@ -1,4 +1,6 @@
-setup: update zsh zsh-config virtualenvwrapper python emacs
+UBUNTU_VERSION := xenial
+
+setup: update zsh zsh-config virtualenvwrapper dotfiles go stack rust
 
 opencv_setup: install-opencv remove_opencv_directories
 
@@ -42,8 +44,6 @@ stack:
 virtualenvwrapper: python
 	sudo apt-get install python-virtualenv
 	sudo pip install virtualenvwrapper
-	echo "export WORKON_HOME=$HOME/.virtualenvs" >> ~/.zshrc
-	echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.zshrc
 
 python:
 	sudo apt-get install -y python2.7-dev python3.5
@@ -51,13 +51,37 @@ python:
 	sudo pip install --upgrade pip
 	sudo pip install jedi
 
-bluetooth-thinkpad:
-	sudo wget http://security.ubuntu.com/ubuntu/pool/main/l/linux-firmware/linux-firmware_1.161.1_all.deb
-	sudo dpkg -i linux-firmware_1.161.1_all.deb
+dotfiles:
+	pip install --user dotfiles
+	cp -R dotfilesrc ~/.dotfiles
+	dotfiles -s
 
-install-postman:
-	wget https://dl.pstmn.io/download/latest/linux64 -O postman.tar.gz
-	sudo tar -xzf postman.tar.gz -C /opt
-	rm postman.tar.gz
-	sudo ln -s /opt/Postman/Postman /usr/bin/postman
-	cp ./postman.desktop ~/.local/share/applications/postman.desktop
+vim-tmux:
+	sudo apt-get install vim
+	sudo apt-get install ack-grep
+	sudo apt-get install tmux
+
+go:
+	wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz
+	sudo tar -xvf go1.8.3.linux-amd64.tar.gz
+	sudo mv go /usr/local
+	rm go1.8.3.linux-amd64.tar.gz
+
+rust:
+	curl https://sh.rustup.rs -sSf | sh
+
+docker:
+	sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(UBUNTU_VERSION) stable"
+	sudo apt-get update && sudo apt-get install docker-ce
+	sudo usermod -aG docker $USER
+	# after the reboot you can use docker without sudo
+	sudo gpasswd -a $USER docker
+	sudo docker run hello-world
+
+docker-compose:
+	sudo curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+	sudo chmod +x /usr/local/bin/docker-compose
+	mkdir -p ~/.zsh/completion
+	curl -L https://raw.githubusercontent.com/docker/compose/1.16.1/contrib/completion/zsh/_docker-compose > ~/.zsh/completion/_docker-compose
