@@ -14,3 +14,8 @@ export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 export PATH=$HOME/.cargo/bin:$PATH
+
+export EDITOR=vim
+source ~/.bin/tmuxinator.zsh
+
+export PATH="$PATH:$HOME/.rvm/bin"
