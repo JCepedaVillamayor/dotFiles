@@ -1,0 +1,13 @@
+name: djangotutorial
+root: ~/repos/mysite
+
+pre_window: workon djangotutorial
+
+windows:
+  - editor:
+      layout: main-vertical
+      panes:
+        - vim
+        - python manage.py shell
+  - server: python manage.py runserver
+  - commands:

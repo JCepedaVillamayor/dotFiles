@@ -27,6 +27,7 @@ Plugin 'https://github.com/kien/ctrlp.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'sheerun/vim-polyglot'
+Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'tomasr/molokai'
 Plugin 'vim-scripts/c.vim', {'for': ['c', 'cpp']}
 Plugin 'ludwig/split-manpage.vim'
@@ -39,6 +40,7 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'raimon49/requirements.txt.vim', {'for': 'requirements'}
 Plugin 'https://github.com/christoomey/vim-tmux-navigator'
 Plugin 'vim-airline/vim-airline'
+Plugin 'scrooloose/syntastic'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'SirVer/ultisnips'
 Plugin 'elixir-lang/vim-elixir'
@@ -140,7 +142,7 @@ let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 50
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*/vendor/*
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 noremap <F3> :NERDTreeToggle<CR>
 
@@ -160,12 +162,12 @@ set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'dir':  '\v[\/](\.*)(git|hg|svn\vendors)$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
 
-let g:ackprg="ack -H --nocolor --nogroup --column"
+let g:ackprg="ack -H --nocolor --nogroup --column --ignore-dir=vendor"
 nmap <leader>j mA:Ack<space>
 nmap <leader>ja mA:Ack "<C-r>=expand("<cword>")<cr>"
 nmap <leader>jA mA:Ack "<C-r>=expand("<cword>")<cr>"
@@ -222,6 +224,9 @@ let g:jedi#smart_auto_mappings = 0
 
 " syntastic
 let g:syntastic_python_checkers=['python', 'flake8']
+
+" vim-airline
+let g:airline#extensions#virtualenv#enabled = 1
 
 " Syntax highlight
 " Default highlight is better than polyglot

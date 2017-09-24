@@ -1,6 +1,6 @@
 UBUNTU_VERSION := xenial
 
-setup: update zsh zsh-config virtualenvwrapper dotfiles go stack rust
+setup: update zsh zsh-config virtualenvwrapper dotfiles go stack rust docker docker-compose spotify tmuxinator
 
 opencv_setup: install-opencv remove_opencv_directories
 
@@ -93,3 +93,8 @@ ruby:
 tmuxinator: ruby
 	sudo gem install tmuxinator
 
+spotify:
+	sudo sh -c 'echo "deb http://repository.spotify.com stable non-free" >> /etc/apt/sources.list.d/spotify.list'
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
+	sudo apt-get update
+	sudo apt-get install spotify-client
