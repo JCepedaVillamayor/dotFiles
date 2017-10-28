@@ -2,7 +2,7 @@ export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="robbyrussell"
 
-plugins=(git docker tmuxinator python rvm docker docker-compose pip golang)
+plugins=(git docker tmuxinator python httpie rvm docker docker-compose pip golang)
 
 source $ZSH/oh-my-zsh.sh
 

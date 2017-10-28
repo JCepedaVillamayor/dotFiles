@@ -59,6 +59,7 @@ dotfiles:
 vim-tmux:
 	sudo apt-get install vim
 	sudo apt-get install ack-grep
+	sudo apt-get install exuberant-tags
 	sudo apt-get install tmux
 
 go:

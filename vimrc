@@ -22,6 +22,8 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'https://github.com/vim-scripts/Rename2'
+Plugin 'https://github.com/tell-k/vim-autopep8'
 Plugin 'https://github.com/scrooloose/nerdtree'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'https://github.com/kien/ctrlp.vim'
@@ -54,6 +56,7 @@ Plugin 'racer-rust/vim-racer'
 Plugin 'rust-lang/rust.vim'
 Plugin 'eagletmt/neco-ghc'
 Plugin 'dag/vim2hs'
+Plugin 'https://github.com/heavenshell/vim-pydocstring'
 Plugin 'pbrisbin/vim-syntax-shakespeare'
 
 call vundle#end()            " required
@@ -155,7 +158,7 @@ let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 50
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*/vendor/*
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*/vendor/*,*/cov_html/*
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 noremap <F3> :NERDTreeToggle<CR>
 
@@ -175,15 +178,13 @@ set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.*)(git|hg|svn\vendors)$',
+  \ 'dir':  '\v[\/](\.*)(git|hg|svn|vendors|cov_html|cache)$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
 
-let g:ackprg="ack -H --nocolor --nogroup --column --ignore-dir=vendor"
+let g:ackprg="ack -H --nocolor --nogroup --column --ignore-dir=vendor --ignore-dir=cov_html --ignore-dir=.cache"
 nmap <leader>f mA:Ack<space>
-nmap <leader>fa mA:Ack "<C-r>=expand("<cword>")<cr>"
-nmap <leader>fA mA:Ack "<C-r>=expand("<cword>")<cr>"
 
 "" Split
 noremap <Leader>h :<C-u>split<CR>
@@ -202,7 +203,8 @@ autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
 
 " html
 " for html files, 2 spaces
-autocmd Filetype html setlocal ts=2 sw=2 expandtab
+autocmd Filetype html setlocal ts=2 sw=2 sts=2 expandtab
+autocmd Filetype htmldjango setlocal ts=2 sw=2 sts=2 expandtab
 
 
 " javascript
@@ -219,7 +221,7 @@ augroup END
 " vim-python
 augroup vimrc-python
   autocmd!
-  autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 colorcolumn=79
+  autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8
       \ formatoptions+=croq softtabstop=4
       \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 augroup END
@@ -373,3 +375,4 @@ else
   let g:airline_symbols.readonly = ''
   let g:airline_symbols.linenr = ''
 endif
+nmap <silent> <C-_> <Plug>(pydocstring)
