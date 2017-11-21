@@ -1,21 +1,21 @@
 name: easy-erp
 root: ~/repos/easy_erp
 
-pre_window: workon easy-erp
-
 windows:
   - editor:
       layout: main-vertical
       panes:
-        - vim
+        - workon easy-erp && vim
   - server:
       layout: main-vertical
       panes:
-        - python manage.py runserver
+        - docker-compose up
   - dbshell:
       layout: main-vertical
       panes:
-        -
+        - $HOME/.tmuxinator/wait-for-docker.sh dg01 && docker attach --sig-proxy=false dg01
+        - $HOME/.tmuxinator/wait-for-docker.sh ng01 && docker attach --sig-proxy=false ng01
+        - $HOME/.tmuxinator/wait-for-docker.sh ps01 && docker attach --sig-proxy=false ps01
   - dbshell:
       layout: main-vertical
       panes:

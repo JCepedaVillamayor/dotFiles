@@ -157,10 +157,12 @@ let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
 let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeWinSize = 50
+let g:NERDTreeWinSize = 30
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*/vendor/*,*/cov_html/*
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 noremap <F3> :NERDTreeToggle<CR>
+
+set so=7
 
 " Search
 set ignorecase
@@ -268,7 +270,7 @@ let g:polyglot_disabled = ['python']
 let python_highlight_all = 1
 
 colorscheme molokai
-let g:airline_theme='powerlineish'
+let g:airline_theme='badwolf'
 
 " go
 " vim-go
@@ -376,3 +378,13 @@ else
   let g:airline_symbols.linenr = ''
 endif
 nmap <silent> <C-_> <Plug>(pydocstring)
+set number relativenumber
+
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
+
+" YAML formatting rules
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
