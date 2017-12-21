@@ -5,18 +5,22 @@ windows:
   - editor:
       layout: main-vertical
       panes:
-        - workon easy-erp && vim
+        - pipenv run vim
   - server:
       layout: main-vertical
       panes:
         - docker-compose up
-  - dbshell:
+  - attach-window:
       layout: main-vertical
       panes:
         - $HOME/.tmuxinator/wait-for-docker.sh dg01 && docker attach --sig-proxy=false dg01
         - $HOME/.tmuxinator/wait-for-docker.sh ng01 && docker attach --sig-proxy=false ng01
         - $HOME/.tmuxinator/wait-for-docker.sh ps01 && docker attach --sig-proxy=false ps01
-  - dbshell:
+  - shell:
+      layout: main-vertical
+      panes:
+        -
+  - shell:
       layout: main-vertical
       panes:
         -

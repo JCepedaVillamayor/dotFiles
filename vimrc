@@ -80,6 +80,9 @@ nnoremap <leader>ss :SaveSession<Space>
 nnoremap <leader>sd :DeleteSession<CR>
 nnoremap <leader>sc :CloseSession<CR>
 
+" Set 7 lines to the cursor - when moving vertically using j/k
+set so=7
+
 let g:session_directory = "~/.vim/session"
 let g:session_autoload = "no"
 let g:session_autosave = "no"
@@ -270,7 +273,7 @@ let g:polyglot_disabled = ['python']
 let python_highlight_all = 1
 
 colorscheme molokai
-let g:airline_theme='badwolf'
+let g:airline_theme='murmur'
 
 " go
 " vim-go
@@ -378,13 +381,6 @@ else
   let g:airline_symbols.linenr = ''
 endif
 nmap <silent> <C-_> <Plug>(pydocstring)
-set number relativenumber
-
-augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-augroup END
 
 " YAML formatting rules
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
