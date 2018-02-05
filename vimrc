@@ -183,7 +183,7 @@ set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.*)(git|hg|svn|vendors|cov_html|cache)$',
+  \ 'dir':  '\v[\/](\.*)(git|hg|svn|vendors|cov_html|cache|node_modules)$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }

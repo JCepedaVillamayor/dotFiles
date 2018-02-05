@@ -22,7 +22,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 alias mux="tmuxinator"
 
-# Load pyenv automatically by adding
+alias update_all="sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y"
 # the following to ~/.zshrc:
 
 export PATH="/home/jcepeda/.pyenv/bin:$PATH"

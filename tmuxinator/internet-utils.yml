@@ -1,5 +1,5 @@
 name: easy-erp
-root: ~/repos/page-utils
+root: ~/repos/page_utils
 
 windows:
   - editor:
