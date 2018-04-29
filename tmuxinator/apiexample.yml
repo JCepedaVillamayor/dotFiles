@@ -1,0 +1,20 @@
+# ~/.tmuxinator/apiexample.yml
+
+name: apiexample
+root: ~/go/src/github.com/jcepedavillamayor/apiexample
+
+windows:
+  - editor:
+      layout: even-horizontal
+      panes:
+        - vim
+        -
+  - server:
+      layout: even-horizontal
+      panes:
+      - docker-compose up
+      -
+  - terminal:
+      layout: even-horizontal
+      panes:
+      -
