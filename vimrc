@@ -21,12 +21,12 @@ endif
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'https://github.com/vim-scripts/Rename2'
-Plugin 'https://github.com/tell-k/vim-autopep8'
+Plugin 'tpope/vim-fugitive' " For git
+Plugin 'https://github.com/vim-scripts/Rename2' " Renaming files
+Plugin 'https://github.com/tell-k/vim-autopep8' " Apply pep8 to python files
 Plugin 'https://github.com/scrooloose/nerdtree'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'https://github.com/kien/ctrlp.vim'
+Plugin 'airblade/vim-gitgutter' " To see diffs inside vim
+Plugin 'https://github.com/kien/ctrlp.vim' " Searching in the project
 Plugin 'Raimondi/delimitMate'
 Plugin 'majutsushi/tagbar'
 Plugin 'Yggdroot/indentLine'
@@ -49,15 +49,8 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'scrooloose/syntastic'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'SirVer/ultisnips'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'carlosgaldino/elixir-snippets'
 Plugin 'fatih/vim-go', {'do': ':GoInstallBinaries'}
-Plugin 'racer-rust/vim-racer'
-Plugin 'rust-lang/rust.vim'
-Plugin 'eagletmt/neco-ghc'
-Plugin 'dag/vim2hs'
 Plugin 'https://github.com/heavenshell/vim-pydocstring'
-Plugin 'pbrisbin/vim-syntax-shakespeare'
 
 call vundle#end()            " required
 " Basic config
@@ -211,6 +204,8 @@ autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
 autocmd Filetype html setlocal ts=2 sw=2 sts=2 expandtab
 autocmd Filetype htmldjango setlocal ts=2 sw=2 sts=2 expandtab
 
+" YAML formatting rules
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " javascript
 let g:javascript_enable_domhtmlcss = 1
@@ -338,13 +333,6 @@ augroup go
 augroup END
 
 
-" haskell
-let g:haskell_conceal_wide = 1
-let g:haskell_multiline_strings = 1
-let g:necoghc_enable_detailed_browse = 1
-autocmd Filetype haskell setlocal omnifunc=necoghc#omnifunc
-
-
 " vim-airline
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -382,5 +370,3 @@ else
 endif
 nmap <silent> <C-_> <Plug>(pydocstring)
 
-" YAML formatting rules
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
