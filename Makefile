@@ -10,7 +10,7 @@ remove_opencv_directories:
 	sudo rm -R opencv-3.0.0 opencv_contrib-3.0.0
 
 zsh:
-	sudo apt-get install git zsh curl
+	sudo dnf install git zsh curl
 	chmod +x scripts/install_oh_my_zsh.sh
 	./scripts/install_oh_my_zsh.sh
 	chsh -s /bin/zsh
@@ -25,12 +25,12 @@ python:
 	sudo pip install jedi
 
 dotfiles:
-	sudo pip install --user dotfiles
+	sudo pip install dotfiles
 	cp -R dotfilesrc ~/.dotfilesrc
 	dotfiles -s --force
 
 vim-tmux:
-	sudo dnf install vim ack
+	sudo dnf install vim ack ctags
 	sudo dnf install tmux
 
 go:
@@ -56,3 +56,7 @@ docker-compose:
 mux:
 	sudo dnf install ruby
 	sudo gem install tmuxinator
+
+nvm:
+	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+

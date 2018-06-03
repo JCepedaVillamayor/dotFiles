@@ -15,7 +15,7 @@ Plugin 'VundleVim/Vundle.vim'
 if iCanHazVundle == 0
   echo "Installing Bundles, please ignore key map error messages"
   echo ""
-  :PlugininInstall
+  :PluginInstall
 endif
 
 call vundle#begin()
@@ -51,6 +51,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'SirVer/ultisnips'
 Plugin 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 Plugin 'https://github.com/heavenshell/vim-pydocstring'
+Plugin 'https://github.com/stevearc/vim-arduino'
 
 call vundle#end()            " required
 " Basic config
@@ -370,3 +371,19 @@ else
 endif
 nmap <silent> <C-_> <Plug>(pydocstring)
 
+" Arduino IDE
+nnoremap <buffer> <leader>am :ArduinoVerify<CR>
+nnoremap <buffer> <leader>au :ArduinoUpload<CR>
+nnoremap <buffer> <leader>ad :ArduinoUploadAndSerial<CR>
+nnoremap <buffer> <leader>ab :ArduinoChooseBoard<CR>
+nnoremap <buffer> <leader>ap :ArduinoChooseProgrammer<CR>
+
+function! MyStatusLine()
+  let port = arduino#GetPort()
+  let line = '%f [' . g:arduino_board . '] [' . g:arduino_programmer . ']'
+  if !empty(port)
+    let line = line . ' (' . port . ':' . g:arduino_serial_baud . ')'
+  endif
+  return line
+endfunction
+setl statusline=%!MyStatusLine()
