@@ -1,2 +1,3 @@
-# dotFiles
-This is the repository for my installations
+# dotfiles
+
+This are my dotfiles

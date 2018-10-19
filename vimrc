@@ -1,61 +1,68 @@
-filetype off
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
-if !filereadable(vundle_readme)
-  echo "Installing Vundle.."
-  echo ""
-  silent !mkdir -p ~/.vim/bundle
-  silent !git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-  let iCanHazVundle=0
-endif
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#rc()
+" vim-bootstrap b990cad
 
-Plugin 'VundleVim/Vundle.vim'
-if iCanHazVundle == 0
-  echo "Installing Bundles, please ignore key map error messages"
-  echo ""
-  :PluginInstall
+"*****************************************************************************
+"" Vim-PLug core
+"*****************************************************************************
+if has('vim_starting')
+  set nocompatible               " Be iMproved
 endif
 
-call vundle#begin()
+let vimplug_exists=expand('~/.vim/autoload/plug.vim')
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-fugitive' " For git
-Plugin 'https://github.com/vim-scripts/Rename2' " Renaming files
-Plugin 'https://github.com/tell-k/vim-autopep8' " Apply pep8 to python files
-Plugin 'https://github.com/scrooloose/nerdtree'
-Plugin 'airblade/vim-gitgutter' " To see diffs inside vim
-Plugin 'https://github.com/kien/ctrlp.vim' " Searching in the project
-Plugin 'Raimondi/delimitMate'
-Plugin 'majutsushi/tagbar'
-Plugin 'Yggdroot/indentLine'
-Plugin 'mileszs/ack.vim'
-Plugin 'bronson/vim-trailing-whitespace'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'jmcantrell/vim-virtualenv'
-Plugin 'tomasr/molokai'
-Plugin 'vim-scripts/c.vim', {'for': ['c', 'cpp']}
-Plugin 'ludwig/split-manpage.vim'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'gorodinskiy/vim-coloresque'
-Plugin 'tpope/vim-haml'
-Plugin 'mattn/emmet-vim'
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'raimon49/requirements.txt.vim', {'for': 'requirements'}
-Plugin 'https://github.com/christoomey/vim-tmux-navigator'
-Plugin 'vim-airline/vim-airline'
-Plugin 'scrooloose/syntastic'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'SirVer/ultisnips'
-Plugin 'fatih/vim-go', {'do': ':GoInstallBinaries'}
-Plugin 'https://github.com/heavenshell/vim-pydocstring'
-Plugin 'https://github.com/stevearc/vim-arduino'
+let g:vim_bootstrap_langs = ""
+let g:vim_bootstrap_editor = "vim"				" nvim or vim
 
-call vundle#end()            " required
-" Basic config
-filetype plugin indent on    " required
+if !filereadable(vimplug_exists)
+  if !executable("curl")
+    echoerr "You have to install curl or first install vim-plug yourself!"
+    execute "q!"
+  endif
+  echo "Installing Vim-Plug..."
+  echo ""
+  silent !\curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  let g:not_finish_vimplug = "yes"
+
+  autocmd VimEnter * PlugInstall
+endif
+
+" Required:
+call plug#begin(expand('~/.vim/plugged'))
+
+Plug 'VundleVim/Vundle.vim'
+Plug 'tpope/vim-fugitive' " For git
+Plug 'https://github.com/vim-scripts/Rename2' " Renaming files
+Plug 'https://github.com/tell-k/vim-autopep8' " Apply pep8 to python files
+Plug 'https://github.com/scrooloose/nerdtree'
+Plug 'airblade/vim-gitgutter' " To see diffs inside vim
+Plug 'https://github.com/kien/ctrlp.vim' " Searching in the project
+Plug 'Raimondi/delimitMate'
+Plug 'majutsushi/tagbar'
+Plug 'Yggdroot/indentLine'
+Plug 'mileszs/ack.vim'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'sheerun/vim-polyglot'
+Plug 'jmcantrell/vim-virtualenv'
+Plug 'tomasr/molokai'
+Plug 'vim-scripts/c.vim', {'for': ['c', 'cpp']}
+Plug 'ludwig/split-manpage.vim'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'gorodinskiy/vim-coloresque'
+Plug 'tpope/vim-haml'
+Plug 'mattn/emmet-vim'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'davidhalter/jedi-vim'
+Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
+Plug 'https://github.com/christoomey/vim-tmux-navigator'
+Plug 'vim-airline/vim-airline'
+Plug 'scrooloose/syntastic'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'SirVer/ultisnips'
+Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
+Plug 'https://github.com/heavenshell/vim-pydocstring'
+Plug 'https://github.com/stevearc/vim-arduino'
+
+call plug#end()
+
 
 " Basic setup
 set encoding=utf-8
@@ -268,7 +275,10 @@ let g:airline_skip_empty_sections = 1
 let g:polyglot_disabled = ['python']
 let python_highlight_all = 1
 
-colorscheme molokai
+if !exists('g:not_finish_vimplug')
+  colorscheme molokai
+endif
+
 let g:airline_theme='murmur'
 
 " go
@@ -370,20 +380,3 @@ else
   let g:airline_symbols.linenr = ''
 endif
 nmap <silent> <C-_> <Plug>(pydocstring)
-
-" Arduino IDE
-nnoremap <buffer> <leader>am :ArduinoVerify<CR>
-nnoremap <buffer> <leader>au :ArduinoUpload<CR>
-nnoremap <buffer> <leader>ad :ArduinoUploadAndSerial<CR>
-nnoremap <buffer> <leader>ab :ArduinoChooseBoard<CR>
-nnoremap <buffer> <leader>ap :ArduinoChooseProgrammer<CR>
-
-function! MyStatusLine()
-  let port = arduino#GetPort()
-  let line = '%f [' . g:arduino_board . '] [' . g:arduino_programmer . ']'
-  if !empty(port)
-    let line = line . ' (' . port . ':' . g:arduino_serial_baud . ')'
-  endif
-  return line
-endfunction
-setl statusline=%!MyStatusLine()
