@@ -205,6 +205,8 @@ nnoremap <silent> <S-t> :tabnew<CR>
 " c
 autocmd FileType c setlocal tabstop=4 shiftwidth=4 expandtab
 autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
+" pragma indent
+set cinkeys-=0#
 
 
 " html
