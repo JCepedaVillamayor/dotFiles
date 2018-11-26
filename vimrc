@@ -60,6 +60,7 @@ Plug 'SirVer/ultisnips'
 Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 Plug 'https://github.com/heavenshell/vim-pydocstring'
 Plug 'https://github.com/stevearc/vim-arduino'
+Plug 'KabbAmine/vZoom.vim', {'on': ['<Plug>(vzoom)', 'VZoomAutoToggle']}
 
 call plug#end()
 
@@ -345,6 +346,8 @@ augroup go
 
 augroup END
 
+"Focus
+nmap gsz <Plug>(vzoom)
 
 " vim-airline
 if !exists('g:airline_symbols')

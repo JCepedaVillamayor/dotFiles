@@ -1,5 +1,9 @@
 export ZSH=$HOME/.oh-my-zsh
 
+# weird behaviour mate
+export TERM=xterm-256color
+
+
 ZSH_THEME="agnoster"
 
 plugins=(
