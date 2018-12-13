@@ -1,4 +1,4 @@
-" vim-bootstrap b990cad
+" vim-bootstrap
 
 "*****************************************************************************
 "" Vim-PLug core
@@ -40,6 +40,7 @@ Plug 'majutsushi/tagbar'
 Plug 'Yggdroot/indentLine'
 Plug 'mileszs/ack.vim'
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 Plug 'sheerun/vim-polyglot'
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'tomasr/molokai'
@@ -57,7 +58,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/syntastic'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'SirVer/ultisnips'
-Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 Plug 'https://github.com/heavenshell/vim-pydocstring'
 Plug 'https://github.com/stevearc/vim-arduino'
 Plug 'KabbAmine/vZoom.vim', {'on': ['<Plug>(vzoom)', 'VZoomAutoToggle']}
@@ -113,6 +113,10 @@ cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
 
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
 
 augroup vimrc-remember-cursor-position
   autocmd!
@@ -133,14 +137,21 @@ noremap <leader>q :bp<CR>
 noremap <leader>x :bn<CR>
 noremap <leader>w :bn<CR>
 
+" Use clipboard for copy/paste
+if has('unix')
+  set clipboard=unnamedplus
+endif
+
+if has('macunix')
+  set clipboard=unnamed
+endif
+
+
 syntax on
 set ruler
 set number
 filetype plugin on
 filetype indent on
-
-" Some fix
-let g:BASH_Ctrl_j = 'off'
 
 " mapleader
 let mapleader = ","
@@ -167,8 +178,6 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*/vendor/*,*/cov_ht
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 noremap <F3> :NERDTreeToggle<CR>
 
-set so=7
-
 " Search
 set ignorecase
 set smartcase
@@ -190,7 +199,7 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'some_bad_symbolic_links',
   \ }
 
-let g:ackprg="ack -H --nocolor --nogroup --column --ignore-dir=vendor --ignore-dir=cov_html --ignore-dir=.cache"
+let g:ackprg="ack -i -H --nocolor --nogroup --column --ignore-dir=vendor --ignore-dir=cov_html --ignore-dir=.cache"
 nmap <leader>f mA:Ack<space>
 
 "" Split
@@ -287,6 +296,11 @@ let g:airline_theme='murmur'
 " go
 " vim-go
 " run :GoBuild or :GoTestCompile based on the go file
+
+if exists('g:loaded_polyglot')
+    let g:polyglot_disabled = ['go']
+endif
+
 function! s:build_go_files()
   let l:file = expand('%')
   if l:file =~# '^\f\+_test\.go$'
@@ -296,6 +310,7 @@ function! s:build_go_files()
   endif
 endfunction
 
+let g:go_list_type = "quickfix"
 let g:go_fmt_command = "goimports"
 let g:go_fmt_fail_silently = 1
 let g:syntastic_go_checkers = ['golint', 'govet']
