@@ -19,10 +19,10 @@ vim-tmux:
 	sudo apt install tmux -y
 
 go:
-	wget https://dl.google.com/go/go1.10.3.linux-amd64.tar.gz
-	sudo tar -xvf go1.10.3.linux-amd64.tar.gz
+	wget https://dl.google.com/go/go1.11.4.linux-amd64.tar.gz
+	sudo tar -xvf go1.11.4.linux-amd64.tar.gz
 	sudo mv go /usr/local
-	rm go1.10.3.linux-amd64.tar.gz
+	rm go1.11.4.linux-amd64.tar.gz
 
 docker:
 	sudo apt-get install apt-transport-https ca-certificates curl software-properties-common -y

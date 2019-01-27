@@ -28,39 +28,62 @@ endif
 " Required:
 call plug#begin(expand('~/.vim/plugged'))
 
-Plug 'VundleVim/Vundle.vim'
-Plug 'tpope/vim-fugitive' " For git
-Plug 'https://github.com/vim-scripts/Rename2' " Renaming files
-Plug 'https://github.com/tell-k/vim-autopep8' " Apply pep8 to python files
-Plug 'https://github.com/scrooloose/nerdtree'
-Plug 'airblade/vim-gitgutter' " To see diffs inside vim
-Plug 'https://github.com/kien/ctrlp.vim' " Searching in the project
+" base plugins
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'airblade/vim-gitgutter'
+Plug 'bronson/vim-trailing-whitespace'
 Plug 'Raimondi/delimitMate'
 Plug 'majutsushi/tagbar'
 Plug 'Yggdroot/indentLine'
-Plug 'mileszs/ack.vim'
-Plug 'bronson/vim-trailing-whitespace'
-Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 Plug 'sheerun/vim-polyglot'
-Plug 'jmcantrell/vim-virtualenv'
+Plug 'mileszs/ack.vim'
+
+if isdirectory('/usr/local/opt/fzf')
+  Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+else
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+  Plug 'junegunn/fzf.vim'
+endif
+
+" color plugins
 Plug 'tomasr/molokai'
-Plug 'vim-scripts/c.vim', {'for': ['c', 'cpp']}
-Plug 'ludwig/split-manpage.vim'
+
+" html plugins
 Plug 'hail2u/vim-css3-syntax'
 Plug 'gorodinskiy/vim-coloresque'
 Plug 'tpope/vim-haml'
 Plug 'mattn/emmet-vim'
+
+" c
+Plug 'vim-scripts/c.vim', {'for': ['c', 'cpp']}
+Plug 'ludwig/split-manpage.vim'
+
+" go
+Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
+
+" javascript plugins
 Plug 'jelera/vim-javascript-syntax'
+
+" personal plugins
+Plug 'KabbAmine/vZoom.vim', {'on': ['<Plug>(vzoom)', 'VZoomAutoToggle']}
+Plug 'https://github.com/vim-scripts/Rename2' " Renaming files
+Plug 'https://github.com/tell-k/vim-autopep8' " Apply pep8 to python files
+
+" tmux-related plugin
+Plug 'https://github.com/christoomey/vim-tmux-navigator'
+
+" python plugins
 Plug 'davidhalter/jedi-vim'
 Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
-Plug 'https://github.com/christoomey/vim-tmux-navigator'
-Plug 'vim-airline/vim-airline'
-Plug 'scrooloose/syntastic'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'SirVer/ultisnips'
 Plug 'https://github.com/heavenshell/vim-pydocstring'
-Plug 'https://github.com/stevearc/vim-arduino'
-Plug 'KabbAmine/vZoom.vim', {'on': ['<Plug>(vzoom)', 'VZoomAutoToggle']}
+
+" PDDL plugins
+Plug 'PontusPersson/pddl.vim'
 
 call plug#end()
 
@@ -72,6 +95,11 @@ set fileencodings=utf-8
 set bomb
 set binary
 set ttyfast
+
+syntax on
+set ruler
+set number
+
 
 " Fix backspace indent
 set backspace=indent,eol,start
@@ -146,10 +174,6 @@ if has('macunix')
   set clipboard=unnamed
 endif
 
-
-syntax on
-set ruler
-set number
 filetype plugin on
 filetype indent on
 
@@ -185,19 +209,11 @@ set smartcase
 set incsearch
 set hlsearch
 
-" CtrlP find
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
-
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.*)(git|hg|svn|vendors|cov_html|cache|node_modules)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
+"" fzf.vim
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
+let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
+nnoremap <silent> <c-p> :FZF -m<CR>
 
 let g:ackprg="ack -i -H --nocolor --nogroup --column --ignore-dir=vendor --ignore-dir=cov_html --ignore-dir=.cache"
 nmap <leader>f mA:Ack<space>
@@ -223,6 +239,9 @@ set cinkeys-=0#
 " for html files, 2 spaces
 autocmd Filetype html setlocal ts=2 sw=2 sts=2 expandtab
 autocmd Filetype htmldjango setlocal ts=2 sw=2 sts=2 expandtab
+
+" PDDL
+autocmd Filetype pddl setlocal ts=2 sw=2 sts=2 expandtab
 
 " YAML formatting rules
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
@@ -360,6 +379,10 @@ augroup go
   au FileType go nmap <leader>rb :<C-u>call <SID>build_go_files()<CR>
 
 augroup END
+
+" Vim latex
+let g:tex_flavor='latex'
+autocmd Filetype latex setlocal ts=2 sw=2 sts=2 expandtab
 
 "Focus
 nmap gsz <Plug>(vzoom)
