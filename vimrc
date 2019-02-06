@@ -30,6 +30,7 @@ call plug#begin(expand('~/.vim/plugged'))
 
 " base plugins
 Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -73,6 +74,8 @@ Plug 'jelera/vim-javascript-syntax'
 Plug 'KabbAmine/vZoom.vim', {'on': ['<Plug>(vzoom)', 'VZoomAutoToggle']}
 Plug 'https://github.com/vim-scripts/Rename2' " Renaming files
 Plug 'https://github.com/tell-k/vim-autopep8' " Apply pep8 to python files
+
+Plug 'gabrielelana/vim-markdown'
 
 " tmux-related plugin
 Plug 'https://github.com/christoomey/vim-tmux-navigator'
@@ -212,7 +215,7 @@ set hlsearch
 "" fzf.vim
 set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
+let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'vendor/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
 nnoremap <silent> <c-p> :FZF -m<CR>
 
 let g:ackprg="ack -i -H --nocolor --nogroup --column --ignore-dir=vendor --ignore-dir=cov_html --ignore-dir=.cache"
@@ -331,9 +334,11 @@ endfunction
 
 let g:go_list_type = "quickfix"
 let g:go_fmt_command = "goimports"
-let g:go_fmt_fail_silently = 1
-let g:syntastic_go_checkers = ['golint', 'govet']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+let g:go_list_type = "quickfix"
+let g:go_metalinter_autosave = 1
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck', 'test', 'testify']
+let g:go_metalinter_deadline = "5s"
+let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck', 'test', 'testify']
 
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
@@ -380,9 +385,10 @@ augroup go
 
 augroup END
 
-" Vim latex
-let g:tex_flavor='latex'
-autocmd Filetype latex setlocal ts=2 sw=2 sts=2 expandtab
+
+" vim markdown
+" disable annoying conceal
+let g:vim_markdown_conceal = 0
 
 "Focus
 nmap gsz <Plug>(vzoom)
