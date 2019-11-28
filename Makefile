@@ -1,3 +1,7 @@
+UNAME_OS := $(shell lsb_release -cs)
+
+install-all: zsh virtualenvwrapper vim-tmux go docker docker-non-root docker-compose mux nvm dotfiles vscode install-fonts
+
 zsh:
 	sudo apt install git zsh curl -y
 	git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
@@ -19,15 +23,15 @@ vim-tmux:
 	sudo apt install tmux -y
 
 go:
-	wget https://dl.google.com/go/go1.11.4.linux-amd64.tar.gz
-	sudo tar -xvf go1.11.4.linux-amd64.tar.gz
+	wget https://dl.google.com/go/go1.12.13.linux-amd64.tar.gz
+	sudo tar -xvf go1.12.13.linux-amd64.tar.gz
 	sudo mv go /usr/local
-	rm go1.11.4.linux-amd64.tar.gz
+	rm go1.12.13.linux-amd64.tar.gz
 
 docker:
 	sudo apt-get install apt-transport-https ca-certificates curl software-properties-common -y
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(UNAME_OS) stable"
 	sudo apt-get update
 	sudo apt-get install docker-ce
 	sudo systemctl start docker
@@ -38,7 +42,7 @@ docker-non-root:
 	sudo docker run hello-world
 
 docker-compose:
-	sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+	sudo curl -L https://github.com/docker/compose/releases/download/1.25.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 	sudo chmod +x /usr/local/bin/docker-compose
 
 mux:
@@ -55,3 +59,13 @@ dotfiles:
 	sudo pip install dotfiles
 	cp -R dotfilesrc ~/.dotfilesrc
 	dotfiles -s --force
+
+vscode:
+	sudo snap install code --classic
+
+install-fonts:
+	sudo apt-get install fonts-powerline
+	curl -L https://github.com/microsoft/cascadia-code/releases/download/v1911.21/Cascadia.ttf -o ./cascadia-code.ttf
+	mkdir -p $$HOME/.fonts
+	mv ./cascadia-code.ttf $$HOME/.fonts/cascadia-code.ttf
+	sudo fc-cache -fv
