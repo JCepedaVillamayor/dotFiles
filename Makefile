@@ -62,6 +62,10 @@ dotfiles:
 
 vscode:
 	sudo snap install code --classic
+	chmod +x ./extensions.sh
+	./extensions.sh
+	mkdir -p $$HOME/.config/Code/User/
+	cp ./vscode-config.json $$HOME/.config/Code/User/settings.json
 
 install-fonts:
 	sudo apt-get install fonts-powerline
@@ -69,3 +73,5 @@ install-fonts:
 	mkdir -p $$HOME/.fonts
 	mv ./cascadia-code.ttf $$HOME/.fonts/cascadia-code.ttf
 	sudo fc-cache -fv
+
+

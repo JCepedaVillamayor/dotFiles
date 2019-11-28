@@ -10,4 +10,6 @@ ignore = [
 	'opencv_install.sh',
 	'README.md',
 	'scripts',
-	'Dotfiles']
+	'Dotfiles',
+	'extensions.sh',
+	'vscode-config.json',]
