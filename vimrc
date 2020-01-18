@@ -170,7 +170,7 @@ noremap <leader>w :bn<CR>
 
 " Use clipboard for copy/paste
 if has('unix')
-  set clipboard=unnamedplus
+  set clipboard^=unnamed,unnamedplus
 endif
 
 if has('macunix')

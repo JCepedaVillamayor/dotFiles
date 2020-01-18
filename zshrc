@@ -4,7 +4,7 @@ export ZSH=$HOME/.oh-my-zsh
 export TERM=xterm-256color
 
 
-ZSH_THEME="agnoster"
+ZSH_THEME="arrow"
 
 plugins=(
 	git

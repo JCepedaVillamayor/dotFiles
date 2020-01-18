@@ -1,4 +1,7 @@
+.PHONY: go
+
 UNAME_OS := $(shell lsb_release -cs)
+GOLANG_VERSION := go1.13.6
 
 install-all: zsh virtualenvwrapper vim-tmux go docker docker-non-root docker-compose mux nvm dotfiles vscode install-fonts
 
@@ -19,14 +22,15 @@ virtualenvwrapper: python
 	sudo pip install virtualenvwrapper
 
 vim-tmux:
-	sudo apt install vim ack ctags -y
+	sudo apt install vim vim-gtk ack ctags -y
 	sudo apt install tmux -y
 
 go:
-	wget https://dl.google.com/go/go1.12.13.linux-amd64.tar.gz
-	sudo tar -xvf go1.12.13.linux-amd64.tar.gz
+	wget https://dl.google.com/go/$(GOLANG_VERSION).linux-amd64.tar.gz
+	sudo tar -xvf $(GOLANG_VERSION).linux-amd64.tar.gz
+	[ -e /usr/local/go ] && sudo rm -rf /usr/local/go
 	sudo mv go /usr/local
-	rm go1.12.13.linux-amd64.tar.gz
+	rm $(GOLANG_VERSION).linux-amd64.tar.gz
 
 docker:
 	sudo apt-get install apt-transport-https ca-certificates curl software-properties-common -y
@@ -72,6 +76,10 @@ install-fonts:
 	curl -L https://github.com/microsoft/cascadia-code/releases/download/v1911.21/Cascadia.ttf -o ./cascadia-code.ttf
 	mkdir -p $$HOME/.fonts
 	mv ./cascadia-code.ttf $$HOME/.fonts/cascadia-code.ttf
+	git clone https://github.com/abertsch/Menlo-for-Powerline.git
+	sudo mv ./Menlo-for-Powerline/"Menlo for Powerline.ttf" /usr/share/fonts/
+	rm -rf Menlo-for-Powerline
+	sudo fc-cache -fv /usr/share/fonts/
 	sudo fc-cache -fv
 
 
