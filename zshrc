@@ -22,15 +22,19 @@ alias loadnvm='export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$N
 
 export EDITOR=vim
 
-export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
-source /usr/local/bin/virtualenvwrapper_lazy.sh
 
+export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:/usr/local/go/bin
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 export PATH=$HOME/.nvm/versions/node/v8.11.4/bin:$PATH
+
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Devel
+export VIRTUALENVWRAPPER_SCRIPT=$HOME/.local/bin/virtualenvwrapper.sh
+source $HOME/.local/bin/virtualenvwrapper_lazy.sh
 
 source ~/.tmuxinator.zsh
 alias mux=tmuxinator

@@ -1,7 +1,7 @@
 .PHONY: go
 
 UNAME_OS := $(shell lsb_release -cs)
-GOLANG_VERSION := go1.13.6
+GOLANG_VERSION := go1.14.12
 
 install-all: zsh virtualenvwrapper vim-tmux go docker docker-non-root docker-compose mux nvm dotfiles vscode install-fonts
 
@@ -13,23 +13,22 @@ zsh:
 
 python:
 	sudo apt install python-dev python3-dev -y
-	sudo apt install python-pip -y
-	sudo pip install --upgrade pip
-	sudo pip install jedi
+	sudo apt install python3-pip -y
+	sudo pip3 install --upgrade pip
+	sudo pip3 install jedi
 
 virtualenvwrapper: python
-	sudo apt-get install python-virtualenv -y
-	sudo pip install virtualenvwrapper
+	sudo apt-get install python3-virtualenv -y
+	pip3 install --user virtualenvwrapper
 
 vim-tmux:
 	sudo apt install vim vim-gtk ack ctags -y
 	sudo apt install tmux -y
 
 go:
+	sudo rm -rf /usr/local/go
 	wget https://dl.google.com/go/$(GOLANG_VERSION).linux-amd64.tar.gz
-	sudo tar -xvf $(GOLANG_VERSION).linux-amd64.tar.gz
-	[ -e /usr/local/go ] && sudo rm -rf /usr/local/go
-	sudo mv go /usr/local
+	sudo tar -C /usr/local -xzf $(GOLANG_VERSION).linux-amd64.tar.gz
 	rm $(GOLANG_VERSION).linux-amd64.tar.gz
 
 docker:
@@ -46,7 +45,7 @@ docker-non-root:
 	sudo docker run hello-world
 
 docker-compose:
-	sudo curl -L https://github.com/docker/compose/releases/download/1.25.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+	sudo curl -L https://github.com/docker/compose/releases/download/1.27.4/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 	sudo chmod +x /usr/local/bin/docker-compose
 
 mux:
@@ -60,7 +59,7 @@ nvm:
 	nvm use 8.11.4
 
 dotfiles:
-	sudo pip install dotfiles
+	sudo pip3 install dotfiles
 	cp -R dotfilesrc ~/.dotfilesrc
 	dotfiles -s --force
 
