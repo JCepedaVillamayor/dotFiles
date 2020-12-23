@@ -55,8 +55,8 @@ mux:
 nvm:
 	git clone https://github.com/creationix/nvm.git ~/.nvm
 	export NVM_DIR="$$HOME/.nvm" && [ -s "$$NVM_DIR/nvm.sh" ] && \. "$$NVM_DIR/nvm.sh" && \
-	nvm install 8.11.4 && \
-	nvm use 8.11.4
+	nvm install 14.15.3 && \
+	nvm use 14.15.3
 
 dotfiles:
 	sudo pip3 install dotfiles
