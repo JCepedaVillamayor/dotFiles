@@ -29,7 +29,7 @@ export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
-export PATH=$HOME/.nvm/versions/node/v8.11.4/bin:$PATH
+export PATH=$HOME/.nvm/versions/node/v15.8.0/bin:$PATH
 
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
@@ -38,3 +38,4 @@ source $HOME/.local/bin/virtualenvwrapper_lazy.sh
 
 source ~/.tmuxinator.zsh
 alias mux=tmuxinator
+export GOMAXPROCS=2
