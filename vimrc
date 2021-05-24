@@ -306,7 +306,9 @@ let g:airline_skip_empty_sections = 1
 
 " Syntax highlight
 " Default highlight is better than polyglot
-let g:polyglot_disabled = ['python']
+if exists('g:loaded_polyglot')
+  let g:polyglot_disabled = ['python']
+endif
 let python_highlight_all = 1
 
 if !exists('g:not_finish_vimplug')

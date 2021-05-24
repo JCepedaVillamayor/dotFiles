@@ -30,12 +30,14 @@ export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 export PATH=$HOME/.nvm/versions/node/v15.8.0/bin:$PATH
+export PATH="$PATH:$(yarn global bin)"
 
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export VIRTUALENVWRAPPER_SCRIPT=$HOME/.local/bin/virtualenvwrapper.sh
 source $HOME/.local/bin/virtualenvwrapper_lazy.sh
 
 source ~/.tmuxinator.zsh
 alias mux=tmuxinator
-export GOMAXPROCS=2
+source $HOME/.zprofile

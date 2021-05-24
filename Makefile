@@ -1,7 +1,7 @@
 .PHONY: go
 
 UNAME_OS := $(shell lsb_release -cs)
-GOLANG_VERSION := go1.14.12
+GOLANG_VERSION := go1.16.3
 
 install-all: zsh virtualenvwrapper vim-tmux go docker docker-non-root docker-compose mux nvm dotfiles vscode install-fonts
 
